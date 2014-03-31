@@ -1,0 +1,89 @@
+<!DOCTYPE HTML> 
+<html>
+	<head>
+		<title>API</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+	<body>
+
+		 <div id="my-map"></div>
+
+		<script type="text/javascript"
+       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjLc_XcGyeFptoRyXNHlUzDGBA79B1alE&sensor=false">
+		</script>
+
+		<script>
+
+		'use strict';
+  
+	// apikey is a string
+  var gMapAPIKey = 'AIzaSyAjLc_XcGyeFptoRyXNHlUzDGBA79B1alE';
+
+ document.addEventListener('DOMContentLoaded', drawMap);
+
+  // make map avaible in global scope 
+  var map;
+
+  function drawMap() {
+    var storeLoc = new google.maps.LatLng(34.103204, -118.32617),
+        storeLoc2 = new google.maps.LatLng(33.799535, -117.8889254);
+    //named property, followed by a colun, and then its value
+        var mapOptions = {
+          center: new google.maps.LatLng(34.039712942162225, -118.09209257873533), //map.getCenter();
+          zoom: 9, //map.getZoom();
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          draggable : true // was false before, map is draggable
+        };
+
+        map = new google.maps.Map(document.getElementById("my-map"),
+            mapOptions);
+
+        // this puts the red marker 
+        var markerOrig = new google.maps.Marker({
+            position: storeLoc,
+            map: map,
+            title: 'Find us here (title here)'
+        });
+
+        var markerNew = new google.maps.Marker({
+            position: storeLoc2,
+            map: map,
+            title: 'New place'
+        });
+
+        /*for having the box of info pop up next to the marker (below) */
+
+        var popupContent = 'Los Angeles Angles of Anaheim<br/>';
+            popupContent += '22222 street<br/>';
+            popupContent += 'Anaheim, CA';
+
+            var popupContent2 = 'Los Angeles Dodgers<br/>';
+            popupContent2 += '11111 street<br/>';
+            popupContent2 += 'Los Angeles, CA';
+
+
+          var infowindow = new google.maps.InfoWindow({
+              content: popupContent,
+              maxWidth: 275
+          });
+
+          var infowindow = new google.maps.InfoWindow({
+              content: popupContent2,
+              maxWidth: 275
+          });
+
+          google.maps.event.addListener(markerOrig, 'click', function() {
+            infowindow.open(map,markerOrig);
+          });
+
+          google.maps.event.addListener(markerNew, 'click', function() {
+            infowindow.open(map,markerNew);
+          });
+
+         /* have the pop up box next to the marker */ 
+      }
+
+
+	  </script>
+	</body>
+</html>
